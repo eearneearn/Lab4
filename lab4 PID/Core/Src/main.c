@@ -183,7 +183,7 @@ int main(void)
 			  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 150);
   			  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 0);
 		  }
-		  else if((-1000 < Vfeedback) && (Vfeedback < -100)){
+		  else if((-1000 < Vfeedback) && (Vfeedback < -150)){
 			  duty = Vfeedback;
 			  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 0);
 			  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, (-1)*(Vfeedback));
