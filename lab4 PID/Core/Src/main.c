@@ -94,6 +94,7 @@ int main(void)
 
   /* USER CODE BEGIN Init */
 
+
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -116,7 +117,7 @@ int main(void)
 
   PID.Kp = 1;
   PID.Ki = 0;
-  PID.Kd = 0.8;
+  PID.Kd = 1.45;
   arm_pid_init_f32(&PID, 0);
 
   /* USER CODE END 2 */
@@ -145,7 +146,7 @@ int main(void)
 		  PrePulsedegree = NowPulsedegree;
 
 		  if(setdegree <= 0)Setdegree = 0;
-		  else if(setdegree >= 3600)Setdegree = 3600;
+		  else if(setdegree >= 36000)Setdegree = 36000;
 		  else Setdegree = setdegree;
 
 		  Pulsesetdegree = Setdegree*(3072/360.0);
@@ -167,7 +168,7 @@ int main(void)
 			  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 0);
 			  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 0);
 		  }
-		  else if((100 < Vfeedback) && (Vfeedback < 1000)){
+		  else if((150 < Vfeedback) && (Vfeedback < 1000)){
 			  duty = Vfeedback;
 			  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, Vfeedback);
 			  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 0);
@@ -177,9 +178,9 @@ int main(void)
 			  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 1000);
 			  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 0);
 		  }
-		  else if((0 < Vfeedback) && (Vfeedback <= 100)){
+		  else if((0 < Vfeedback) && (Vfeedback <= 150)){
 			  duty = 100;
-			  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 100);
+			  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 150);
   			  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 0);
 		  }
 		  else if((-1000 < Vfeedback) && (Vfeedback < -100)){
@@ -192,10 +193,10 @@ int main(void)
 			  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 0);
 			  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 1000);
 		  }
-		  else if((0 > Vfeedback) && (Vfeedback >= -100)){
+		  else if((0 > Vfeedback) && (Vfeedback >= -150)){
 			  duty = 100;
 			  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 0);
-			  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 100);
+			  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 150);
 		  }
 	  }
   }
